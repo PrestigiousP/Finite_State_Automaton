@@ -58,5 +58,10 @@ namespace TP1_Math
         {
             this.regles = regles;
         }
+
+        public override string ToString()
+        {
+            return "G = {V, T, S, R}" + "\nV = {" + vocabulaire + "}\nT = {0, 1}\nS = {" + sDepart + "}\nR = {" + regles + "}";
+        }
     }
 }

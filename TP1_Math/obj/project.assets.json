@@ -8,25 +8,20 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Phili\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\julie\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Phili\\source\\repos\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
+      "projectUniqueName": "C:\\Users\\julie\\OneDrive\\Documents\\BAC INFO\\2e cycle\\PIF1006\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
       "projectName": "TP1_Math",
-      "projectPath": "C:\\Users\\Phili\\source\\repos\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
-      "packagesPath": "C:\\Users\\Phili\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Phili\\source\\repos\\TP1_Math\\TP1_Math\\obj\\",
+      "projectPath": "C:\\Users\\julie\\OneDrive\\Documents\\BAC INFO\\2e cycle\\PIF1006\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
+      "packagesPath": "C:\\Users\\julie\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\julie\\OneDrive\\Documents\\BAC INFO\\2e cycle\\PIF1006\\TP1_Math\\TP1_Math\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Phili\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\julie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -63,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

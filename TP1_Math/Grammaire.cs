@@ -1,55 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace TP1_Math
 {
     public class Grammaire
     {
-        private String vocabulaire;
-        private int[] terminaux;
-        private String sDepart;
-        private String regles;
-
-
+        public string Vocabulaire { get; set; }
+        public int[] Terminaux { get; private set; }
+        public string SDepart { get; set; }
+        public string Regles { get; set; }
         //Constructeur
-        public Grammaire(String vocabulaire, String sDepart, String regles)
+        public Grammaire(string vocabulaire, String sDepart, String regles)
         {
-            this.vocabulaire = vocabulaire;
-            this.terminaux[0] = 0;
-            this.terminaux[1] = 1;
-            this.sDepart = sDepart;
-            this.regles = regles;
+            Vocabulaire = vocabulaire;
+            Terminaux[0] = 0;
+            Terminaux[1] = 1;
+            SDepart = sDepart;
+            Regles = regles;
         }
 
-        //Accesseurs et mutateurs
-        public String Vocabulaire
-        {
-            get{ return vocabulaire; }
-            set{ vocabulaire = value; }
-        }
-
-        public int[] Terminaux
-        {
-            get { return terminaux; }
-        }
-
-        public String SDepart
-        {
-            get { return sDepart; }
-            set { sDepart = value; }
-        }
-
-        public String Regles
-        {
-            get { return regles; }
-            set { regles = value; }
-        }     
 
         //ToString de la classe
         public override string ToString()
         {
-            return "G = {V, T, S, R}" + "\nV = {" + vocabulaire + "}\nT = {0, 1}\nS = {" + sDepart + "}\nR = {" + regles + "}";
+            return "G = {V, T, S, R}" + "\nV = {" + Vocabulaire + "}\nT = {0, 1}\nS = {" + SDepart + "}\nR = {" + Regles + "}";
         }
     }
 }

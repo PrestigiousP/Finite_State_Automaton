@@ -16,8 +16,7 @@ namespace TP1_Math
         public Grammaire(String vocabulaire, String sDepart, String regles)
         {
             this.vocabulaire = vocabulaire;
-            this.terminaux[0] = 0;
-            this.terminaux[1] = 1;
+            int[] terminaux = { 0, 1 };
             this.sDepart = sDepart;
             this.regles = regles;
         }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace TP1_Math
 {
-    class ManageFiles
+    public class ManageFiles
     {
         public string filePath { get; set; }
 

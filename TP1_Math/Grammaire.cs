@@ -22,43 +22,31 @@ namespace TP1_Math
             this.regles = regles;
         }
 
-        //Accesseurs
-        public String GetVocabulaire()
+        //Accesseurs et mutateurs
+        public String Vocabulaire
         {
-            return vocabulaire;
+            get{ return vocabulaire; }
+            set{ vocabulaire = value; }
         }
 
-        public int[] GetTerminaux()
+        public int[] Terminaux
         {
-            return terminaux;
+            get { return terminaux; }
         }
 
-        public String GetSDepart()
+        public String SDepart
         {
-            return sDepart;
+            get { return sDepart; }
+            set { sDepart = value; }
         }
 
-        public String GetRegles()
+        public String Regles
         {
-            return regles;
-        }
+            get { return regles; }
+            set { regles = value; }
+        }     
 
-        //Mutateurs
-        public void SetVocabulaire(String vocabulaire)
-        {
-            this.vocabulaire = vocabulaire;
-        }
-
-        public void SetSDepart(String sDepart)
-        {
-            this.sDepart = sDepart;
-        }
-
-        public void SetRegles(String regles)
-        {
-            this.regles = regles;
-        }
-
+        //ToString de la classe
         public override string ToString()
         {
             return "G = {V, T, S, R}" + "\nV = {" + vocabulaire + "}\nT = {0, 1}\nS = {" + sDepart + "}\nR = {" + regles + "}";

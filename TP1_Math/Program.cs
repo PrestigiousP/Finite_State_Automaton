@@ -13,6 +13,8 @@ namespace TP1_Math
             //Maybe put it in a ressource...?
             manageFile.FilePath = "C:\\dev\\TP1_Math\\TP1_Math\\TextFile1.txt";
             Menu();
+            StateTable st = new StateTable(grammaire);
+            st.CreateNDFAStateTable();
         }
 
         private static void Menu()

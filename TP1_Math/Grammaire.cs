@@ -9,28 +9,28 @@ namespace TP1_Math
         public string Vocabulaire { get; set; }
         public int[] Terminaux { get; private set; } = { 0, 1 };
         public string SDepart { get; set; }
-        private List<string> _regles;
+        public List<string> Regles { get; private set; }
         //Constructeur
         public Grammaire(string vocabulaire, string sDepart, List<string> regles)
         {
             Vocabulaire = vocabulaire;
             SDepart = sDepart;
-            _regles = regles;
+            Regles = regles;
         }
 
         public void AddRules(string rule)
         {
-            _regles.Add(rule);
+            Regles.Add(rule);
         }
         public void RemoveRules(string rule)
         {
-            _regles.Remove(rule);
+            Regles.Remove(rule);
         }
         //ToString de la classe
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            _regles.ForEach(r =>
+            Regles.ForEach(r =>
             {
                 sb.Append(r + ", ");
             });

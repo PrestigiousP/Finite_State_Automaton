@@ -9,7 +9,7 @@ namespace TP1_Math
 {
     public class ManageFiles
     {
-        public string filePath { get; set; }
+        public string FilePath { get; set; }
 
         public ManageFiles()
         {
@@ -24,9 +24,9 @@ namespace TP1_Math
                 Console.WriteLine("Entrez le nom du fichier (sans le nom d'extension).");
                 fileName = Console.ReadLine();
                 Console.WriteLine("Entrez le nom du répertoire où vous voulez sauvegarder le fichier");
-                filePath = Console.ReadLine();
-                filePath += "\\" + fileName + ".txt";
-                TextWriter tw = new StreamWriter(filePath);
+                FilePath = Console.ReadLine();
+                FilePath += "\\" + fileName + ".txt";
+                TextWriter tw = new StreamWriter(FilePath);
                 tw.WriteLine(grammaire);
                 tw.Close();
                 // Console.WriteLine("ça marche");
@@ -40,16 +40,14 @@ namespace TP1_Math
 
         public string GetFileData()
         {
-            using (System.IO.StreamReader sr = new System.IO.StreamReader(filePath))
+            StreamReader sr = new StreamReader(FilePath);
+            StringBuilder sb = new StringBuilder();
+            string line;
+            while ((line = sr.ReadLine()) != null)
             {
-                string result = "";
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    result += line;
-                }
-                return result;
+                sb.Append(line + "\n");
             }
+            return sb.ToString();
         }
     }
 }

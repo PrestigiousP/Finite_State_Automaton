@@ -20,9 +20,8 @@ namespace TP1_Math
         {
             try
             {
-                string fileName;
                 Console.WriteLine("Entrez le nom du fichier (sans le nom d'extension).");
-                fileName = Console.ReadLine();
+                string fileName = Console.ReadLine();
                 Console.WriteLine("Entrez le nom du répertoire où vous voulez sauvegarder le fichier");
                 FilePath = Console.ReadLine();
                 FilePath += "\\" + fileName + ".txt";

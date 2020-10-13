@@ -6,14 +6,14 @@ namespace TP1_Math
     public class Program
     {
         //Instance des objets utile au programme dans son intégralité
-        public static ManageFiles manageFile = new ManageFiles();
-        public static Grammaire grammaire;
+        private static readonly ManageFiles manageFile = new ManageFiles();
+        private static Grammaire _grammaire;
         static void Main(string[] args)
         {
             //Maybe put it in a ressource...?
             manageFile.FilePath = "C:\\dev\\TP1_Math\\TP1_Math\\TextFile1.txt";
             Menu();
-            StateTable st = new StateTable(grammaire);
+            StateTable st = new StateTable(_grammaire);
             st.CreateNDFAStateTable();
         }
 
@@ -54,16 +54,16 @@ namespace TP1_Math
             {
                 case 1: //Créer ou réécrire une grammaire
                     GrammarInitializer init = new GrammarInitializer();
-                    grammaire = init.Initialize();
-                    Console.WriteLine(grammaire.ToString());
-                    manageFile.Create_Rewrite_File(grammaire.ToString());
+                    _grammaire = init.Initialize();
+                    Console.WriteLine(_grammaire.ToString());
+                    manageFile.Create_Rewrite_File(_grammaire.ToString());
                     break;
                 case 2: //Charger une grammaire
                     string strGrammaire = manageFile.GetFileData();
 
                     GrammarInitializer preloadGrammar = new GrammarInitializer();
-                    grammaire = preloadGrammar.Initialize(strGrammaire);
-                    Console.WriteLine(grammaire.ToString());
+                    _grammaire = GrammarInitializer.Initialize(strGrammaire);
+                    Console.WriteLine(_grammaire.ToString());
                     //Seul problème c'est qu'on peut pas choisir quel fichier txt est utilisé pour chargé dans la grammaire
                     break;
                 case 3:

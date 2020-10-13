@@ -10,36 +10,37 @@ namespace TP1_Math
 
         public Grammaire Initialize()
         {
-            string vocabulary, startState;
-            List<string> rules;
-            vocabulary = EnterVocabulary("0", "1");
-            startState = EnterDepartState(vocabulary);
-            rules = EnterRules(vocabulary, startState[0]);
-            Grammaire grammaire = new Grammaire(vocabulary, startState, rules);
+            string vocabulary = EnterVocabulary("0", "1");
+            string startState = EnterDepartState(vocabulary);
+            List<string> rules = EnterRules(vocabulary, startState[0]);
+            var grammaire = new Grammaire(vocabulary, startState, rules);
             return grammaire;
         }
 
-        public Grammaire Initialize(string input)
+        public static Grammaire Initialize(string input)
         {
             string[] lineSplitter = input.Split("\n");
             int[] start = new int[lineSplitter.Length];
             int[] end = new int[lineSplitter.Length];
 
-            for (int i = 1; i < start.Length; i++)
+            for (var i = 1; i < start.Length; i++)
             {
                 start[i] = lineSplitter[i].IndexOf("{") + 1;
                 end[i] = lineSplitter[i].IndexOf("}") - start[i];
             }
+
             string voc = lineSplitter[1].Substring(start[1], end[1]);
             string startState = lineSplitter[3].Substring(start[3], end[3]);
             string rules = lineSplitter[4].Substring(start[4], end[4]);
 
             string[] commaSplitter = rules.Split(", ");
             List<string> ruleList = new List<string>();
-            foreach (string s in commaSplitter)
+
+            foreach (var s in commaSplitter)
             {
                 ruleList.Add(s);
             }
+
             Grammaire grammaire = new Grammaire(voc, startState, ruleList);
             return grammaire;
         }
@@ -115,7 +116,7 @@ namespace TP1_Math
                     {
                         //Checking if the letters entered are part of the vocabulary
                         bool isVocabulary = true;
-                        foreach(char c in str)
+                        foreach (char c in str)
                         {
                             if (c.Equals('-') || c.Equals('>')) continue;
                             if (!vocabulary.Contains(c.ToString()) && c != 'e')
@@ -147,6 +148,4 @@ namespace TP1_Math
             return ruleList;
         }
     }
-
-
 }

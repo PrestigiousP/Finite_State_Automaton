@@ -6,9 +6,9 @@ namespace TP1_Math
 {
     public class Grammaire
     {
-        public string Vocabulaire { get; set; }
-        public int[] Terminaux { get; private set; } = { 0, 1 };
-        public string SDepart { get; set; }
+        private string Vocabulaire { get; }
+        private int[] Terminaux { get; } = { 0, 1 };
+        private string SDepart { get; }
         public List<string> Regles { get; private set; }
         //Constructeur
         public Grammaire(string vocabulaire, string sDepart, List<string> regles)
@@ -34,9 +34,10 @@ namespace TP1_Math
             {
                 sb.Append(r + ", ");
             });
-            
+
             sb.Remove(sb.Length - 2, 2);
-            return "G = {V, T, S, R}" + "\nV = {" + Vocabulaire + "}\nT = {0, 1}\nS = {" + SDepart + "}\nR = {" + sb.ToString() + "}";
+            string terminal = $"{Terminaux[0]}, {Terminaux[1]}";
+            return "G = {V, T, S, R}" + "\nV = {" + Vocabulaire + "}\nT = {" + terminal + "}\nS = {" + SDepart + "}\nR = {" + sb.ToString() + "}";
         }
     }
 }

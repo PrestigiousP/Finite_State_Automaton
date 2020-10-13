@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TP1_Math
 {
-    class ConsoleHelper
+    static class ConsoleHelper
     {
         public static int AskInteger(string question, int min, int max)
         {
@@ -19,7 +19,7 @@ namespace TP1_Math
                     var val = Console.ReadLine();
                     value = Convert.ToInt32(val);
 
-                    if(value <= max && value >=min)
+                    if (value <= max && value >= min)
                     {
                         valid = 1;
                     }

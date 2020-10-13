@@ -14,7 +14,7 @@ namespace TP1_Math
             List<string> rules;
             vocabulary = EnterVocabulary("0", "1");
             startState = EnterDepartState(vocabulary);
-            rules = EnterRules(vocabulary);
+            rules = EnterRules(vocabulary, startState[0]);
             Grammaire grammaire = new Grammaire(vocabulary, startState, rules);
             return grammaire;
         }
@@ -96,7 +96,7 @@ namespace TP1_Math
             return state;
         }
 
-        private List<string> EnterRules(string vocabulary)
+        private List<string> EnterRules(string vocabulary, char startState)
         {
             string str = null;
             List<string> ruleList = new List<string>();
@@ -122,10 +122,15 @@ namespace TP1_Math
                             {
                                 isVocabulary = false;
                                 break;
-                            } 
+                            }
+                            if (c == 'e' && str[0] != startState)
+                            {
+                                isVocabulary = false;
+                                break;
+                            }
                         }
                         valid = isVocabulary ? 1 : 0;
-                        if (valid == 0) Console.WriteLine("La regle est invalide puisqu'un ou plusieurs de ses etats ne font pas partie du vocabulaire.");
+                        if (valid == 0) Console.WriteLine("La regle est invalide puisqu'un ou plusieurs de ses etats ne font pas partie du vocabulaire ou n'est pas une grammaire reguliaire.");
                     }
                     else
                     {

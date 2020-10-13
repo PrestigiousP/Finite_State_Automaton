@@ -9,12 +9,12 @@ namespace TP1_Math
     class StateTable
     {
         private Grammaire _grammaire;
-        private readonly Dictionary<string, LinkedList<string>[]> _dictionnary;
+        private Dictionary<string, StateTransition> _dictionnary;
 
         public StateTable(Grammaire grammaire)
         {
             _grammaire = grammaire;
-            _dictionnary = new Dictionary<string, LinkedList<string>[]>();
+            _dictionnary = new Dictionary<string, StateTransition>();
         }
         //CELA VA PERMETTRE DE EVENTUELLEMENT TRANSFORMER UN AUTOMATE NON-DETERMINISTE A UN DETERMINISTE
         public void CreateNDFAStateTable()
@@ -23,41 +23,45 @@ namespace TP1_Math
             Regex rx = new Regex("^[0-1]{1}[A-Z]{1}$");
             ruleList.ForEach(r =>
             {
-                int getTerminal = r.Contains("0") ? 0 : 1;
-                string[] split = r.Split("->");
-                string nextState = split[1];
-                
-                nextState = !rx.IsMatch(nextState) ? "FINAL" : nextState.Substring(1);
+            int getTerminal = r.Contains("0") ? 0 : 1;
+            string[] split = r.Split("->");
+            string nextState = split[1];
 
-                if (_dictionnary.ContainsKey(split[0]))
-                {
-                    _dictionnary[split[0]][getTerminal].AddLast(nextState);
+            nextState = !rx.IsMatch(nextState) ? "FINAL" : nextState.Substring(1);
+
+            if (_dictionnary.ContainsKey(split[0]))
+            {
+                    _dictionnary[split[0]].SetNextState(getTerminal, nextState);
+                    if (nextState == "FINAL") _dictionnary[split[0]].IsFinalState = true;
                 }
                 else
                 {
-                    LinkedList<string>[] terminal = new LinkedList<string>[2];
-                    terminal[0] = new LinkedList<string>();
-                    terminal[1] = new LinkedList<string>();
-                    terminal[getTerminal].AddLast(nextState);
-                    _dictionnary.Add(split[0], terminal);
+                    StateTransition stateTransition = new StateTransition();
+                    stateTransition.SetNextState(getTerminal, nextState);
+
+                    if (nextState == "FINAL") stateTransition.IsFinalState = true;
+                    _dictionnary.Add(split[0], stateTransition);
                 }
             });
 
             //Just for debugging
-            foreach(KeyValuePair<string, LinkedList<string>[]> kvp in _dictionnary)
+            foreach (KeyValuePair<string, StateTransition> kvp in _dictionnary)
             {
                 string zero = "", one = "";
-                foreach (string s in kvp.Value[0])
+                foreach (string s in kvp.Value.NextState[0])
                 {
                     zero += s + "||";
                 }
 
-                foreach (string s in kvp.Value[1])
+                foreach (string s in kvp.Value.NextState[1])
                 {
                     one += s + "||";
                 }
+                    
+                bool final = kvp.Value.IsFinalState;
+                
 
-                Console.WriteLine("Key = {0}, terminal0 = {1}, terminal1 = {2}", kvp.Key, zero, one);
+                Console.WriteLine("Key = {0}, terminal0 = {1}, terminal1 = {2}, final = {3}", kvp.Key, zero, one, final);
             }
         }
         //TODO

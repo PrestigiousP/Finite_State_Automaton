@@ -100,7 +100,7 @@ namespace TP1_Math
         {
             string str = null;
             List<string> ruleList = new List<string>();
-            Regex rx = new Regex("^[A-Z]{1}->?([0-1]{1}|[0-1]{1}[A-Z]{1})$", RegexOptions.Compiled);
+            Regex rx = new Regex("^[A-Z]{1}->?([0-1]{1}|[0-1]{1}[A-Z]{1}|[e]{1})$", RegexOptions.Compiled);
 
             while (true)
             {
@@ -118,7 +118,7 @@ namespace TP1_Math
                         foreach(char c in str)
                         {
                             if (c.Equals('-') || c.Equals('>')) continue;
-                            if (!vocabulary.Contains(c.ToString()))
+                            if (!vocabulary.Contains(c.ToString()) && c != 'e')
                             {
                                 isVocabulary = false;
                                 break;

@@ -23,45 +23,57 @@ namespace TP1_Math
             List<string> ruleList = _grammaire.Regles;
             Regex rx = new Regex("^[0-1]{1}[A-Z]{1}$");
 
-            string[] charSet = new string[128];
+            //string[] charSet = new string[128];
 
             foreach (string r in ruleList)
             {
                 int getTerminal = r.Contains("0") ? 0 : 1;
                 string[] split = r.Split("->");
-                char currentState = split[0][0];
+                //char currentState = split[0][0];
                 string nextState = split[1];
 
-                if (rx.IsMatch(nextState))
-                {
-                    nextState = nextState.Substring(1);
-                }
+                if (rx.IsMatch(nextState)) nextState = nextState.Substring(1);
                 else
                 {
-                    charSet[currentState] = charSet[currentState] == null ? nextState : (charSet[currentState] + $" {nextState}");
-                    if (!_dictionnary.ContainsKey(split[0]))
+                    //charSet[currentState] = charSet[currentState] == null ? nextState : (charSet[currentState] + $" {nextState}");
+                    if (!_dictionnary.ContainsKey("SF") && nextState != "e")
                     {
-                        //Initialize an empty object
+                        nextState = "SF";
                         StateTransition stateTransition = new StateTransition();
-                        _dictionnary.Add(split[0], stateTransition);
+                        stateTransition.IsFinalState = true;
+                        _dictionnary.Add(nextState, stateTransition);
                     }
-                    continue;
+                    else if (_dictionnary.ContainsKey("SF") && nextState != "e") continue;
                 }
 
                 if (_dictionnary.ContainsKey(split[0]))
                 {
-                    _dictionnary[split[0]].SetNextState(getTerminal, nextState);
+                    if (nextState == "e") _dictionnary[split[0]].IsFinalState = true;
+                    else _dictionnary[split[0]].SetNextState(getTerminal, nextState);
                 }
                 else
                 {
                     StateTransition stateTransition = new StateTransition();
-                    stateTransition.SetNextState(getTerminal, nextState);
-                    _dictionnary.Add(split[0], stateTransition);
+                    if (nextState == "e")
+                    {
+                        _dictionnary.Add(split[0], stateTransition);
+                        _dictionnary[split[0]].IsFinalState = true;
+                    }
+                    else
+                    {
+                        stateTransition.SetNextState(getTerminal, nextState);
+                        _dictionnary.Add(split[0], stateTransition);
+                    } 
                 }
 
             }
-            AddFinalState(charSet);
+            //AddFinalState(charSet);
             //Just for debugging
+            printDictionnaryStructure();
+        }
+
+        public void printDictionnaryStructure()
+        {
             foreach (var kvp in _dictionnary)
             {
                 string zero = "", one = "";
@@ -80,43 +92,42 @@ namespace TP1_Math
 
                 Console.WriteLine("Key = {0}, terminal0 = {1}, terminal1 = {2}, final = {3}", kvp.Key, zero, one, final);
             }
-
         }
 
-        private void AddFinalState(IReadOnlyList<string> charSet)
-        {
-            foreach (var kvp in _dictionnary)
-            {
-                //Chek if the key had a terminal state.(ex: A->1) Then mark the state that also has the terminal as final(Ex: A->1B: B will be mark as a final state)
-                if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains("0"))
-                {
-                    int count = 0;
-                    //Allow to set each 
-                    foreach (var s in kvp.Value.NextState[0])
-                    {
-                        _dictionnary[s].IsFinalState = true;
-                        count++;
-                    }
-                    if (count == 0) _dictionnary[kvp.Key].IsFinalState = true;
+        //private void AddFinalState(IReadOnlyList<string> charSet)
+        //{
+        //    foreach (var kvp in _dictionnary)
+        //    {
+        //        //Chek if the key had a terminal state.(ex: A->1) Then mark the state that also has the terminal as final(Ex: A->1B: B will be mark as a final state)
+        //        if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains("0"))
+        //        {
+        //            int count = 0;
+        //            //Allow to set each 
+        //            foreach (var s in kvp.Value.NextState[0])
+        //            {
+        //                _dictionnary[s].IsFinalState = true;
+        //                count++;
+        //            }
+        //            if (count == 0) _dictionnary[kvp.Key].IsFinalState = true;
 
-                }
-                if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains("1"))
-                {
-                    int count = 0;
-                    //Allow to set each 
-                    foreach (var s in kvp.Value.NextState[1])
-                    {
-                        _dictionnary[s].IsFinalState = true;
-                        count++;
-                    }
-                    if (count == 0) _dictionnary[kvp.Key].IsFinalState = true;
-                }
-                if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains('e'))
-                {
-                    _dictionnary[kvp.Key].IsFinalState = true;
-                }
-            }
-        }
+        //        }
+        //        if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains("1"))
+        //        {
+        //            int count = 0;
+        //            //Allow to set each 
+        //            foreach (var s in kvp.Value.NextState[1])
+        //            {
+        //                _dictionnary[s].IsFinalState = true;
+        //                count++;
+        //            }
+        //            if (count == 0) _dictionnary[kvp.Key].IsFinalState = true;
+        //        }
+        //        if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains('e'))
+        //        {
+        //            _dictionnary[kvp.Key].IsFinalState = true;
+        //        }
+        //    }
+        //}
         //TODO
         public void CnvertToDFATable()
         {

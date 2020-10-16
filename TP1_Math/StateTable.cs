@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -30,10 +31,20 @@ namespace TP1_Math
                 string[] split = r.Split("->");
                 char currentState = split[0][0];
                 string nextState = split[1];
-                if (rx.IsMatch(nextState)) nextState = nextState.Substring(1);
+
+                if (rx.IsMatch(nextState))
+                {
+                    nextState = nextState.Substring(1);
+                }
                 else
                 {
                     charSet[currentState] = charSet[currentState] == null ? nextState : (charSet[currentState] + $" {nextState}");
+                    if (!_dictionnary.ContainsKey(split[0]))
+                    {
+                        //Initialize an empty object
+                        StateTransition stateTransition = new StateTransition();
+                        _dictionnary.Add(split[0], stateTransition);
+                    }
                     continue;
                 }
 
@@ -79,19 +90,26 @@ namespace TP1_Math
                 //Chek if the key had a terminal state.(ex: A->1) Then mark the state that also has the terminal as final(Ex: A->1B: B will be mark as a final state)
                 if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains("0"))
                 {
+                    int count = 0;
                     //Allow to set each 
                     foreach (var s in kvp.Value.NextState[0])
                     {
                         _dictionnary[s].IsFinalState = true;
+                        count++;
                     }
+                    if (count == 0) _dictionnary[kvp.Key].IsFinalState = true;
+
                 }
                 if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains("1"))
                 {
+                    int count = 0;
                     //Allow to set each 
                     foreach (var s in kvp.Value.NextState[1])
                     {
                         _dictionnary[s].IsFinalState = true;
+                        count++;
                     }
+                    if (count == 0) _dictionnary[kvp.Key].IsFinalState = true;
                 }
                 if (charSet[kvp.Key[0]] != null && charSet[kvp.Key[0]].Contains('e'))
                 {

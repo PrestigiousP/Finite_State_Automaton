@@ -9,7 +9,7 @@
   },
   "packageFolders": {
     "C:\\Users\\Fred\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Microsoft\\Xamarin\\NuGet": {}
   },
   "project": {
     "version": "1.0.0",
@@ -21,7 +21,7 @@
       "outputPath": "C:\\dev\\TP1_Math\\TP1_Math\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet"
       ],
       "configFilePaths": [
         "C:\\Users\\Fred\\AppData\\Roaming\\NuGet\\NuGet.Config",

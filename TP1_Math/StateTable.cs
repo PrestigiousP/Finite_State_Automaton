@@ -80,17 +80,17 @@ namespace TP1_Math
                 string zero = "", one = "";
                 foreach (var s in kvp.Value.NextState[0])
                 {
-                    zero += s;
+                    zero += s + ",";
                 }
 
                 foreach (var s in kvp.Value.NextState[1])
                 {
-                    one += s;
+                    one += s + ",";
                 }
 
                 bool final = kvp.Value.IsFinalState;
 
-                Console.WriteLine($"{kvp.Key}\t{zero},\t\t{one},\t\t{final}");
+                Console.WriteLine($"{kvp.Key}\t{zero}\t\t{one}\t\t{final}");
             }
         }
     }

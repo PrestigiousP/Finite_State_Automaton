@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\TP1_Math\\TP1_Math\\TP1_Math.csproj": {}
+    "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj": {}
   },
   "projects": {
-    "C:\\dev\\TP1_Math\\TP1_Math\\TP1_Math.csproj": {
+    "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
+        "projectUniqueName": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
         "projectName": "TP1_Math",
-        "projectPath": "C:\\dev\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
-        "packagesPath": "C:\\Users\\Fred\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\TP1_Math\\TP1_Math\\obj\\",
+        "projectPath": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
+        "packagesPath": "C:\\Users\\Phili\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Fred\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Phili\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

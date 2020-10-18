@@ -10,12 +10,16 @@ namespace TP1_Math
     class StateTable
     {
         private Grammaire _grammaire;
-        private Dictionary<string, StateTransition> _tableStructure;
+        public Dictionary<string, StateTransition> _tableStructure { set; get; }
 
-        public StateTable(Grammaire grammaire)
+        public StateTable()
         {
-            _grammaire = grammaire;
+            //_grammaire = grammaire;
             _tableStructure = new Dictionary<string, StateTransition>();
+        }
+        public void SetGrammar(Grammaire gram)
+        {
+            _grammaire = gram;
         }
         //CELA VA PERMETTRE DE EVENTUELLEMENT TRANSFORMER UN AUTOMATE NON-DETERMINISTE A UN DETERMINISTE
         public void CreateNDFAStateTable()

@@ -11,39 +11,64 @@ namespace TP1_Math
         static void Main(string[] args)
         {
             //Maybe put it in a ressource...?
-            manageFile.FilePath = "C:\\dev\\TP1_Math\\TP1_Math\\TextFile1.txt";
-            Menu();
-            StateTable st = new StateTable(_grammaire);
-            st.CreateNDFAStateTable();
+            manageFile.FilePath = "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\test.txt";
+            StateTable st = new StateTable();
+            Menu(st);
+
         }
 
-        private static void Menu()
+        private static void Menu(StateTable st)
         {
-            Console.WriteLine("---------------------Menu---------------------\n");
-            Console.WriteLine("1- Gérer la grammaire");
-            Console.WriteLine("2- ");
-            Console.WriteLine("3- Quitter");
-            int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 3);
-            switch (choix)
+            bool sortir = true;
+            while (sortir)
             {
-                case 1:
-                    GererGrammaire();
-                    //gérer grammaire
-                    break;
-                case 2:
-                    //ManageFiles.Menu(grammaire);
-                    //
-                    //gérer règles de grammaire
-                    break;
-                case 3:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    break;
+                Console.WriteLine("---------------------Menu---------------------\n");
+                Console.WriteLine("1- Gérer la grammaire");
+                Console.WriteLine("2- ");
+                Console.WriteLine("3- Quitter");
+                int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 3);
+                switch (choix)
+                {
+                    case 1:
+                        GererGrammaire(st);
+                        //gérer grammaire
+                        break;
+                    case 2:
+                        st.CreateNDFAStateTable();
+                        CheckExpression(st);
+                        //ManageFiles.Menu(grammaire);
+                        //
+                        //gérer règles de grammaire
+                        break;
+                    case 3:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+        } 
+        private static void CheckExpression(StateTable st)
+        {
+            Console.WriteLine("Veuillez entrer une expression (Ex.: 10001110): ");
+            try
+            {
+                // StateTable st = new StateTable(_grammaire);
+                //// st.CnvertToDFATable();
+                // var dict = st.GetState();
+                string expression = Console.ReadLine();
+                ExpressionReader exp = new ExpressionReader(expression, st);
+                bool check = exp.Validate();
+                Console.WriteLine(check);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 
-        private static void GererGrammaire()
+        private static void GererGrammaire(StateTable st)
         {
             Console.WriteLine("---------------------Menu Gérer une grammaire---------------------\n");
             Console.WriteLine("1- Créer ou réécrire une grammaire");
@@ -64,6 +89,7 @@ namespace TP1_Math
                     GrammarInitializer preloadGrammar = new GrammarInitializer();
                     _grammaire = GrammarInitializer.Initialize(strGrammaire);
                     Console.WriteLine(_grammaire.ToString());
+                    st.SetGrammar(_grammaire);
                     //Seul problème c'est qu'on peut pas choisir quel fichier txt est utilisé pour chargé dans la grammaire
                     break;
                 case 3:

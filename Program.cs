@@ -35,13 +35,8 @@ namespace TP1_Math
                         break;
                     case 2:
                         st.CreateNDFAStateTable();
+                        //st.CnvertToDFATable();
                         CheckExpression(st);
-                        //ManageFiles.Menu(grammaire);
-                        //
-                        //gérer règles de grammaire
-                        break;
-                    case 3:
-                        Environment.Exit(0);
                         break;
                     default:
                         break;
@@ -51,20 +46,31 @@ namespace TP1_Math
         } 
         private static void CheckExpression(StateTable st)
         {
-            Console.WriteLine("Veuillez entrer une expression (Ex.: 10001110): ");
-            try
+            bool sortir = true;
+            while (sortir)
             {
-                // StateTable st = new StateTable(_grammaire);
-                //// st.CnvertToDFATable();
-                // var dict = st.GetState();
-                string expression = Console.ReadLine();
-                ExpressionReader exp = new ExpressionReader(expression, st);
-                bool check = exp.Validate();
-                Console.WriteLine(check);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Veuillez entrer une expression (Ex.: 10001110). Pour quitter, entrez \"q\": ");
+                try
+                {
+                    // StateTable st = new StateTable(_grammaire);
+                    //// st.CnvertToDFATable();
+                    // var dict = st.GetState();
+                    string expression = Console.ReadLine();
+                    if(expression != "q")
+                    {
+                        ExpressionReader exp = new ExpressionReader(expression, st, st.GetGrammar());
+                        bool check = exp.Validate();
+                        Console.WriteLine(check);
+                    }
+                    else
+                    {
+                        sortir = false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 

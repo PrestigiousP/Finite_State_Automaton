@@ -21,5 +21,10 @@ namespace TP1_Math
         {
             NextState[terminalValue].AddLast(nextState);
         }
+
+        public string GetNextState(int i)
+        {
+            return NextState[i].ToString();
+        }
     }
 }

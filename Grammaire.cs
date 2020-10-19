@@ -8,7 +8,7 @@ namespace TP1_Math
     {
         private string Vocabulaire { get; }
         private int[] Terminaux { get; } = { 0, 1 };
-        private string SDepart { get; }
+        public string SDepart { get; }
         public List<string> Regles { get; private set; }
         //Constructeur
         public Grammaire(string vocabulaire, string sDepart, List<string> regles)

@@ -6,7 +6,7 @@ namespace TP1_Math
 {
     class StateTransition
     {
-        public LinkedList<string>[] NextState { get; private set; }
+        public LinkedList<string>[] NextState { get; }
         public bool IsFinalState { get; set; }
 
         public StateTransition()

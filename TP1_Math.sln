@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30503.244
+VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP1_Math", "TP1_Math\TP1_Math.csproj", "{39A4B22E-1FB6-46A1-8594-F2B46B4AA012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP1_Math", "TP1_Math.csproj", "{83584BDF-4060-4FF4-99BA-33FEE22F6013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{39A4B22E-1FB6-46A1-8594-F2B46B4AA012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39A4B22E-1FB6-46A1-8594-F2B46B4AA012}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39A4B22E-1FB6-46A1-8594-F2B46B4AA012}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39A4B22E-1FB6-46A1-8594-F2B46B4AA012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83584BDF-4060-4FF4-99BA-33FEE22F6013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83584BDF-4060-4FF4-99BA-33FEE22F6013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83584BDF-4060-4FF4-99BA-33FEE22F6013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83584BDF-4060-4FF4-99BA-33FEE22F6013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {83146616-37D0-43DD-A217-56295030BDFA}
+		SolutionGuid = {DB5B1B23-5489-4A8C-BDFD-0CCE2CD832EB}
 	EndGlobalSection
 EndGlobal

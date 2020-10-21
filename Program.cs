@@ -11,10 +11,9 @@ namespace TP1_Math
         static void Main(string[] args)
         {
             //Maybe put it in a ressource...?
-            manageFile.FilePath = "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\test.txt";
+            manageFile.FilePath = "C:\\dev\\TP1_Math\\test.txt";
             StateTable st = new StateTable();
             Menu(st);
-
         }
 
         private static void Menu(StateTable st)
@@ -35,6 +34,7 @@ namespace TP1_Math
                         break;
                     case 2:
                         st.CreateNDFAStateTable();
+                        st.ConvertToDFATable();
                         //st.CnvertToDFATable();
                         CheckExpression(st);
                         break;

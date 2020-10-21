@@ -11,12 +11,12 @@ namespace TP1_Math
     class StateTable
     {
         private Grammaire _grammaire;
-        public Dictionary<string, StateTransition> _tableStructure { set; get; }
+        public Dictionary<string, StateTransition> _ndfaTableStructure { set; get; }
 
         public StateTable()
         {
             //_grammaire = grammaire;
-            _tableStructure = new Dictionary<string, StateTransition>();
+            _ndfaTableStructure = new Dictionary<string, StateTransition>();
         }
 
         public void SetGrammar(Grammaire gram)
@@ -59,112 +59,172 @@ namespace TP1_Math
                 else
                 {
                     if (nextState != "e") nextState = "SF";
-                    if (!_tableStructure.ContainsKey("SF") && nextState != "e")
+                    if (!_ndfaTableStructure.ContainsKey("SF") && nextState != "e")
                     {
                         StateTransition stateTransition = new StateTransition();
                         stateTransition.IsFinalState = true;
-                        _tableStructure.Add(nextState, stateTransition);
+                        _ndfaTableStructure.Add(nextState, stateTransition);
                     }
                 }
 
-                if (_tableStructure.ContainsKey(split[0]))
+                if (_ndfaTableStructure.ContainsKey(split[0]))
                 {
-                    //Si le non-terminal existe déjà et que pour un même input il se rend vers un autre état différent,
-                    //alors on le fait aller vers un état qui est la fusion des deux autres.
-                    if(_tableStructure[split[0]].NextState[Int32.Parse(nextState.Substring(0))] != null)
-                    {
-                        lastState = _tableStructure[split[0]].GetNextState(Int32.Parse(nextState.Substring(0)));
-                        StateTransition stateTransition = new StateTransition();
-                        stateTransition.SetNextState(getTerminal, nextState + lastState);
-                        _tableStructure[split[0]] = stateTransition;
-                        listeEtatsFusionnes.Add(nextState + lastState);
-
-                        //faire quelque chose
-                    }
-
-                    if (nextState == "e") _tableStructure[split[0]].IsFinalState = true;
-                    else _tableStructure[split[0]].SetNextState(getTerminal, nextState);
+                    // //Si le non-terminal existe déjà et que pour un même input il se rend vers un autre état différent,
+                    // //alors on le fait aller vers un état qui est la fusion des deux autres.
+                    // if(_ndfaTableStructure[split[0]].NextState[Int32.Parse(nextState.Substring(0))] != null)
+                    // {
+                    //     lastState = _ndfaTableStructure[split[0]].GetNextState(Int32.Parse(nextState.Substring(0)));
+                    //     StateTransition stateTransition = new StateTransition();
+                    //     stateTransition.SetNextState(getTerminal, nextState + lastState);
+                    //     _ndfaTableStructure[split[0]] = stateTransition;
+                    //     listeEtatsFusionnes.Add(nextState + lastState);
+                    //
+                    //     //faire quelque chose
+                    // }
+                    if (nextState == "e") _ndfaTableStructure[split[0]].IsFinalState = true;
+                    else _ndfaTableStructure[split[0]].SetNextState(getTerminal, nextState);
                 }
                 else
                 {
                     StateTransition stateTransition = new StateTransition();
                     if (nextState == "e")
                     {
-                        _tableStructure.Add(split[0], stateTransition);
-                        _tableStructure[split[0]].IsFinalState = true;
+                        _ndfaTableStructure.Add(split[0], stateTransition);
+                        _ndfaTableStructure[split[0]].IsFinalState = true;
                     }
                     else
                     {
                         stateTransition.SetNextState(getTerminal, nextState);
-                        _tableStructure.Add(split[0], stateTransition);
+                        _ndfaTableStructure.Add(split[0], stateTransition);
                     } 
                 }
 
             }
             //Just for debugging
-            printTable();
+            PrintTable();
         }
 
         //TODO
-        public void CnvertToDFATable()
+        public void ConvertToDFATable()
         {
+            //Setting up the dfa table
             string depart = _grammaire.SDepart;
-            string suite = depart;
-            string state1;
-            string state2;
-            StateTransition state = _tableStructure[depart];
-            Dictionary<string, StateTransition> newTable = null;
-            StateTransition newState = null;
-            //LinkedList<string> nextState = state.NextState;
-            for(int i = 0; i < _tableStructure.Count; i++)
+            StateTransition state = _ndfaTableStructure[depart];
+            var listOfFinalState = GatherFinalState();
+            var dfaTableStructure = new Dictionary<string, StateTransition>();
+
+            //Go add the key of the starting input with the next states
+            dfaTableStructure.Add(depart, state);
+            
+            //Take the terminal with the start state and then add a key
+            string stateTerminalOne = Helper.ConvertListToString(dfaTableStructure[depart].NextState[0]);
+            string stateTerminalTwo = Helper.ConvertListToString(dfaTableStructure[depart].NextState[1]);
+            
+            //If the list is not empty, then add it as a key to the dictionnary
+            if (stateTerminalOne != "") dfaTableStructure.Add(stateTerminalOne, new StateTransition());
+            if (stateTerminalTwo != "") dfaTableStructure.Add(stateTerminalTwo, new StateTransition());
+
+            //Go through all the dictionnary and while in it, add other keys
+            for (int i = 0; i < dfaTableStructure.Count; i++)
             {
-                int j = 0;
-                while(j < 2)
+                var kvp = dfaTableStructure.ElementAt(i);
+                if (kvp.Key == depart) continue;
+                string[] splitNonTerminal = kvp.Key.Split(",");
+                
+                //Initialize a list of string that will be converted to a full string afterward
+                List<string> l0 = new List<string>();
+                List<string> l1 = new List<string>();
+
+                foreach (var key in splitNonTerminal)
                 {
-                    if (state.NextState[j].Count > 1)
-                    {
-                        state1 = state.NextState[j].ElementAt(0);
-                        state2 = state.NextState[j].ElementAt(1);
-
-                        if (_tableStructure[state1].IsFinalState || _tableStructure[state2].IsFinalState)
-                            newState.IsFinalState = true;
-
-                        newState.SetNextState(j, state1 + state2);
-                        newTable[suite] = newState;
-                    }
-                    else if(state.NextState[j].Count == 1)
-                    {
-                        newState.SetNextState(j, state.NextState[j].ElementAt(0));
-                        newTable[suite] = newState;
-                    }
-
-                    j++;
+                    if (key == "") continue;
+                    //This allows to add every state in the list so that it will be easier to check for duplicate
+                    l0.AddRange((List<string>)Helper.ConvertStringToList(_ndfaTableStructure[key].NextState[0]));
+                    l1.AddRange((List<string>)Helper.ConvertStringToList(_ndfaTableStructure[key].NextState[1]));
                 }
+                //Remove the elements that are the same in the list
+                Helper.ChekDuplicates(l0);
+                Helper.ChekDuplicates(l1);
 
-                suite = _tableStructure[suite].NextState[0].ElementAt(0);
-
+                //Reconvert the list to a string so that it can be added in the dictionnary
+                string firstKeyToAdd = Helper.ConvertListToString(l0);
+                string secondKeyToAdd = Helper.ConvertListToString(l1);
+                
+                //Add those value in the current key as the next state
+                dfaTableStructure[kvp.Key].SetNextState(0, firstKeyToAdd);
+                dfaTableStructure[kvp.Key].SetNextState(1, secondKeyToAdd);
+                
+                //Set the final state
+                listOfFinalState.ForEach(element =>
+                {
+                    if (kvp.Key.Contains(element)) dfaTableStructure[kvp.Key].IsFinalState = true;
+                });  
+                
+                //Look if there are similar keys, if not, add the string(firstKeyToAdd, secondKeyToAdd) to the dictionnary
+                if (!dfaTableStructure.ContainsKey(firstKeyToAdd) && l0.Count > 0)
+                {
+                    dfaTableStructure.Add(firstKeyToAdd, new StateTransition());
+                }
+                if (!dfaTableStructure.ContainsKey(secondKeyToAdd) && l1.Count > 0)
+                {
+                    dfaTableStructure.Add(secondKeyToAdd, new StateTransition());
+                }
             }
+            PrintTable(dfaTableStructure);
         }
 
-        public void printTable()
+        private List<string> GatherFinalState()
+        {
+            List<string> list = new List<string>();
+            foreach (var kvp in _ndfaTableStructure)
+            {
+                if (kvp.Value.IsFinalState) list.Add(kvp.Key); 
+            }
+
+            return list;
+        }
+
+        private void PrintTable()
         {
             Console.WriteLine("State\tInput(0)\tInput(1)\tIs it a finale state?");
-            foreach (var kvp in _tableStructure)
+            foreach (var kvp in _ndfaTableStructure)
             {
                 string zero = "", one = "";
                 foreach (var s in kvp.Value.NextState[0])
                 {
-                    zero += s;
+                    zero += s + ",";
                 }
 
                 foreach (var s in kvp.Value.NextState[1])
                 {
-                    one += s;
+                    one += s + ",";
                 }
 
                 bool final = kvp.Value.IsFinalState;
 
-                Console.WriteLine($"{kvp.Key}\t{zero},\t\t{one},\t\t{final}");
+                Console.WriteLine($"{kvp.Key}\t{zero}\t\t{one}\t\t{final}");
+            }
+        }
+        
+        private void PrintTable(Dictionary<string, StateTransition> dic)
+        {
+            Console.WriteLine("State\tInput(0)\tInput(1)\tIs it a finale state?");
+            foreach (var kvp in dic)
+            {
+                string zero = "", one = "";
+                foreach (var s in kvp.Value.NextState[0])
+                {
+                    zero += s + ",";
+                }
+
+                foreach (var s in kvp.Value.NextState[1])
+                {
+                    one += s + ",";
+                }
+
+                bool final = kvp.Value.IsFinalState;
+
+                Console.WriteLine($"{kvp.Key}\t{zero}\t\t{one}\t\t{final}");
             }
         }
     }

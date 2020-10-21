@@ -14,7 +14,7 @@ namespace TP1_Math
         public ExpressionReader(string expression, StateTable state, Grammaire grammaire)
         {
             Expression = expression;
-            Regles = state._tableStructure;
+            Regles = state._ndfaTableStructure;
             Grammaire = grammaire;
         }
 

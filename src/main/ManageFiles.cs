@@ -6,6 +6,7 @@ namespace TP1_Math.main
 {
     /// <summary>
     /// This class is a model that will be use when reading and writing to a file
+    /// Author: Philippe Baillargeon
     /// </summary>
     public class ManageFiles
     {

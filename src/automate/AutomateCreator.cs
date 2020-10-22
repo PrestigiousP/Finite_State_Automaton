@@ -8,7 +8,9 @@ using TP1_Math.main;
 namespace TP1_Math.automate
 {
     /// <summary>Class <c>AutomateCreator</c> Model for the ndfa table and dfa table which create the
-    /// model for the automate.</summary>
+    /// model for the automate.
+    /// Author: Frédérick Simard
+    /// </summary>
     ///
     class AutomateCreator
     {
@@ -88,8 +90,8 @@ namespace TP1_Math.automate
             dfaTable.Add(initialSate, state);
 
             //Take the terminal with the start state and then add a key
-            string stateTerminalOne = StringHelper.ConvertListToString(dfaTable[initialSate].NextState[0]);
-            string stateTerminalTwo = StringHelper.ConvertListToString(dfaTable[initialSate].NextState[1]);
+            string stateTerminalOne = ListHelper.ConvertListToString(dfaTable[initialSate].NextState[0]);
+            string stateTerminalTwo = ListHelper.ConvertListToString(dfaTable[initialSate].NextState[1]);
 
             //If the list is not empty, then add it as a key to the dictionnary
             if (stateTerminalOne != "" && !dfaTable.ContainsKey(stateTerminalOne))
@@ -112,17 +114,17 @@ namespace TP1_Math.automate
                 {
                     if (key == "") continue;
                     //This allows to add every state in the list so that it will be easier to check for duplicate
-                    stateListTerminal0.AddRange((List<string>) StringHelper.ConvertToList(Automate[key].NextState[0]));
-                    stateListTerminal1.AddRange((List<string>) StringHelper.ConvertToList(Automate[key].NextState[1]));
+                    stateListTerminal0.AddRange((List<string>) ListHelper.ConvertToList(Automate[key].NextState[0]));
+                    stateListTerminal1.AddRange((List<string>) ListHelper.ConvertToList(Automate[key].NextState[1]));
                 }
 
                 //Remove the elements that are the same in the list
-                StringHelper.ChekDuplicates(stateListTerminal0);
-                StringHelper.ChekDuplicates(stateListTerminal1);
+                ListHelper.ChekDuplicates(stateListTerminal0);
+                ListHelper.ChekDuplicates(stateListTerminal1);
 
                 //Reconvert the list to a string so that it can be added in the dictionnary
-                string firstKeyToAdd = StringHelper.ConvertListToString(stateListTerminal0);
-                string secondKeyToAdd = StringHelper.ConvertListToString(stateListTerminal1);
+                string firstKeyToAdd = ListHelper.ConvertListToString(stateListTerminal0);
+                string secondKeyToAdd = ListHelper.ConvertListToString(stateListTerminal1);
 
                 //Add those value in the current key as the next state
                 dfaTable[kvp.Key].SetNextState(0, firstKeyToAdd);

@@ -6,6 +6,7 @@ namespace TP1_Math.automate
 {
     /// <summary>
     /// Class <c>ExpressionReader</c> model for an expression and how it will interact with the user.
+    /// Author: Philippe Baillargeon
     /// </summary>
     class ExpressionReader
     {
@@ -51,7 +52,7 @@ namespace TP1_Math.automate
 
                 if (nextState.Count > 0)
                 {
-                    depart = StringHelper.ConvertListToString(nextState);
+                    depart = ListHelper.ConvertListToString(nextState);
                     if (depart == "") return false;
                     currentState = _automate[depart];
                 }

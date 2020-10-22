@@ -7,6 +7,7 @@ namespace TP1_Math.main
 {
     /// <summary>
     /// This method will initialize the given type for a grammar.
+    /// Author: Frédérick Simard
     /// </summary>
     class GrammarInitializer
     {

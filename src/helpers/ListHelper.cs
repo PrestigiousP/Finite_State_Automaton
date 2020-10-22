@@ -6,8 +6,9 @@ namespace TP1_Math.helpers
 {
     /// <summary>
     /// Class <c>StringHelper</c> This class does some operation to a string.
+    /// Author: Frédérick Simard
     /// </summary>
-    public class StringHelper
+    public class ListHelper
     {
         /// <summary>
         /// This generic method convert a string to list

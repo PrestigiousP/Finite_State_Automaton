@@ -4,6 +4,7 @@ namespace TP1_Math.automate
 {
     /// <summary>
     /// Class <c>StateTransition</c> This class is a model for what consist a state transition.
+    /// Author: Frédérick Simard
     /// </summary>
     class StateTransition
     {

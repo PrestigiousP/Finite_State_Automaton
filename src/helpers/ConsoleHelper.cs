@@ -6,6 +6,7 @@ namespace TP1_Math.helpers
     /// <summary>
     /// Class <c>ConsoleHelper</c> This class help the console to read and write some stuff
     /// in a more conveniant and clearer way.
+    /// Author: Frédérick Simard
     /// </summary>
     static class ConsoleHelper
     {

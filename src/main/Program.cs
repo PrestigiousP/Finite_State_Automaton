@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using TP1_Math.automate;
 using TP1_Math.helpers;
 
 namespace TP1_Math.main
 {
+    /// <summary>
+    /// This class contains the main workflow.
+    /// Author: Philippe Baillargeon, Frédérick Simard, Julien Turcotte
+    /// </summary>
     public class Program
     {
         //Instance variables

@@ -5,6 +5,7 @@ namespace TP1_Math.main
 {
     /// <summary>
     /// Class <c>Grammaire</c> This class is a model for a Grammar.
+    /// Author: Julien Turcotte
     /// </summary>
     public class Grammar
     {

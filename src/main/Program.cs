@@ -1,5 +1,6 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using TP1_Math.automate;
 using TP1_Math.helpers;
 
@@ -18,8 +19,7 @@ namespace TP1_Math.main
 
         private static void Menu()
         {
-            bool sortir = true;
-            while (sortir)
+            while (true)
             {
                 Console.WriteLine("---------------------Menu---------------------\n");
                 Console.WriteLine("1- Gérer la grammaire");
@@ -40,9 +40,18 @@ namespace TP1_Math.main
                         }
                         AutomateCreator automate = new AutomateCreator(_grammaire);
                         automate.Execute();
-                        CheckExpression(automate);
+                        string expression = "";
+                        while (expression != "q")
+                        {
+                            expression =
+                                ConsoleHelper.AskString(
+                                    "Veuillez entrer une expression (Ex.: 10001110). Pour quitter, entrez \"q\": ");
+                            ExpressionReader expressionReader = new ExpressionReader(expression, automate.Automate, _grammaire.SDepart);
+                            expressionReader.CheckExpression();
+                        }
                         break;
                     case 3:
+                        AutomaticInput();
                         break;
                     case 4:
                         Environment.Exit(0);
@@ -79,32 +88,51 @@ namespace TP1_Math.main
                     break;
             }
         }
-        
-        private static void CheckExpression(AutomateCreator automate)
+
+        private static void AutomaticInput()
         {
-            bool sortir = true;
-            while (sortir)
+            string s = "G = {V, T, S, R}\n" +
+                       "V = {0, 1, A, S, B, C, D, E}\n" +
+                       "T = {0, 1}\n" +
+                       "S = {S}\n" +
+                       "R = {S->e, S->0A, S->0, S->0D, A->1B, B->1C, C->0A, C->0, C->0D, D->0, D->0E, D->1, E->0, E->0E}";
+
+            // ConsoleHelper.PrintString("Les informations sont en train d'être traité par le système...", 3000);
+            // string strGrammaire = _manageFile.
+            // ConsoleHelper.PrintString("Succès!", 500);
+            // ConsoleHelper.PrintString("Les données receuillis seront transferé dans un grammaire.", 1000);
+            _grammaire = GrammarInitializer.Initialize(s);
+            ConsoleHelper.PrintString("Les données ont bels et bien été transféré dans une grammaire. La voici:", 500);
+            ConsoleHelper.PrintString(_grammaire.ToString(), 5000);
+            ConsoleHelper.PrintString("L'automate va se créer...", 500);
+            AutomateCreator automate = new AutomateCreator(_grammaire);
+            automate.Execute();
+            ConsoleHelper.PrintString("L'automate a été créé avec les éléments ci-dessus!", 5000);
+            ConsoleHelper.PrintString("5 input aléatoires seront effectués", 500);
+            for (int i = 0; i < 6; i++)
             {
-                Console.WriteLine("Veuillez entrer une expression (Ex.: 10001110). Pour quitter, entrez \"q\": ");
-                try
-                {
-                    string expression = Console.ReadLine();
-                    if(expression != "q")
-                    {
-                        ExpressionReader exp = new ExpressionReader(expression, automate.Automate, _grammaire.SDepart);
-                        bool check = exp.Validate();
-                        Console.WriteLine(check);
-                    }
-                    else
-                    {
-                        sortir = false;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                string expression = RandomInputGenerator();
+                ConsoleHelper.PrintString($"Input {i}: {expression}", 2000);
+                ExpressionReader expressionReader = new ExpressionReader(expression, automate.Automate, _grammaire.SDepart);
+                expressionReader.CheckExpression();
+                ConsoleHelper.PrintString("------------------------------", 2000);
             }
+            ConsoleHelper.PrintString("Fini!", 1000);
+            
+        }
+
+        private static string RandomInputGenerator()
+        {
+            Random random = new Random();
+            StringBuilder sb = new StringBuilder();
+            int inputLength = random.Next(0, 11);
+            for (int i = 0; i < inputLength; i++)
+            {
+                int terminalInput = random.Next(0, 2);
+                sb.Append(terminalInput);
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -20,4 +20,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\test.txt"></EmbeddedResource>
+  </ItemGroup>
 </Project>

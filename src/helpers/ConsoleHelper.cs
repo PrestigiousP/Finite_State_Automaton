@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace TP1_Math.helpers
 {
@@ -33,6 +34,19 @@ namespace TP1_Math.helpers
                 }
             }
             return value;
+        }
+
+        public static string AskString(string question)
+        {
+            Console.Write(question);
+            string str = Console.ReadLine();
+            return str;
+        }
+
+        public static void PrintString(string str, int sleep)
+        {
+            Console.WriteLine(str);
+            Thread.Sleep(sleep);
         }
     }
 }

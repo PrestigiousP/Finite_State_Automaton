@@ -7,24 +7,30 @@ using TP1_Math.main;
 
 namespace TP1_Math.automate
 {
+    /// <summary>Class <c>AutomateCreator</c> Model for the ndfa table and dfa table which create the
+    /// model for the automate.</summary>
+    ///
     class AutomateCreator
     {
+        //Instance variable
         public Dictionary<string, StateTransition> Automate { get; private set; }
-        private Grammaire Grammaire { get; }
+        private Grammar Grammar { get; }
 
-        public AutomateCreator(Grammaire grammaire)
+        /// <summary>This constructor initializes a new automate based on the grammar.</summary>
+        /// <param name="grammar">The grammar</param>
+        public AutomateCreator(Grammar grammar)
         {
             //_grammaire = grammaire;
             Automate = new Dictionary<string, StateTransition>();
-            Grammaire = grammaire;
+            Grammar = grammar;
         }
-        
-        //Automate non demernistic
+
+        /// <summary>This method create a NDFA table based on the grammar given to the constructor</summary>
         private void CreateNDFAStateTable()
         {
             Regex rx = new Regex("^[0-1]{1}[A-Z]{1}$");
 
-            foreach (string r in Grammaire.Regles)
+            foreach (string r in Grammar.Rules)
             {
                 int getTerminal = r.Contains("0") ? 0 : 1;
                 string[] split = r.Split("->");
@@ -62,31 +68,34 @@ namespace TP1_Math.automate
                     {
                         stateTransition.SetNextState(getTerminal, nextState);
                         Automate.Add(split[0], stateTransition);
-                    } 
+                    }
                 }
-
             }
         }
 
-        //TODO
+        /// <summary>This method create a DFA table based on the previously created NDFA table.
+        /// It converts the NDFA table to a DFA table which will be usefull to read the
+        /// user input more clearly</summary>
         private void ConvertToDFATable()
         {
             //Setting up the dfa table
-            string initialSate = Grammaire.SDepart;
+            string initialSate = Grammar.InitialState;
             StateTransition state = Automate[initialSate];
             var listOfFinalState = GatherFinalState();
             var dfaTable = new Dictionary<string, StateTransition>();
 
             //Go add the key of the starting input with the next states
             dfaTable.Add(initialSate, state);
-            
+
             //Take the terminal with the start state and then add a key
             string stateTerminalOne = StringHelper.ConvertListToString(dfaTable[initialSate].NextState[0]);
             string stateTerminalTwo = StringHelper.ConvertListToString(dfaTable[initialSate].NextState[1]);
-            
+
             //If the list is not empty, then add it as a key to the dictionnary
-            if (stateTerminalOne != "") dfaTable.Add(stateTerminalOne, new StateTransition());
-            if (stateTerminalTwo != "") dfaTable.Add(stateTerminalTwo, new StateTransition());
+            if (stateTerminalOne != "" && !dfaTable.ContainsKey(stateTerminalOne))
+                dfaTable.Add(stateTerminalOne, new StateTransition());
+            if (stateTerminalTwo != "" && !dfaTable.ContainsKey(stateTerminalTwo))
+                dfaTable.Add(stateTerminalTwo, new StateTransition());
 
             //Go through all the dictionnary and while in it, add other keys
             for (int i = 0; i < dfaTable.Count; i++)
@@ -103,8 +112,8 @@ namespace TP1_Math.automate
                 {
                     if (key == "") continue;
                     //This allows to add every state in the list so that it will be easier to check for duplicate
-                    stateListTerminal0.AddRange((List<string>) StringHelper.ConvertStringToList(Automate[key].NextState[0]));
-                    stateListTerminal1.AddRange((List<string>) StringHelper.ConvertStringToList(Automate[key].NextState[1]));
+                    stateListTerminal0.AddRange((List<string>) StringHelper.ConvertToList(Automate[key].NextState[0]));
+                    stateListTerminal1.AddRange((List<string>) StringHelper.ConvertToList(Automate[key].NextState[1]));
                 }
 
                 //Remove the elements that are the same in the list
@@ -135,11 +144,14 @@ namespace TP1_Math.automate
             Automate = dfaTable;
         }
 
+        /// <summary>This method create a list of the state that are final in the NDFA table</summary>
+        /// <returns>A list that contains the state that are finals</returns>>
         private List<string> GatherFinalState()
         {
             return (from kvp in Automate where kvp.Value.IsFinalState select kvp.Key).ToList();
         }
 
+        /// <summary>This method execute all the tables to be able to give to the user the good automate</summary>
         public void Execute()
         {
             Console.WriteLine("Printing the non deterministic table");
@@ -151,6 +163,7 @@ namespace TP1_Math.automate
             PrintTable();
         }
 
+        /// <summary>This method print a table(NDFA or DFA)</summary>
         private void PrintTable()
         {
             Console.WriteLine("State\tInput(0)\tInput(1)\tIs it a finale state?");
@@ -164,11 +177,12 @@ namespace TP1_Math.automate
                 {
                     terminal0 = terminal0.Substring(0, terminal0.Length - 1);
                 }
+
                 if (!string.IsNullOrEmpty(terminal1))
                 {
                     terminal1 = terminal1.Substring(0, terminal1.Length - 1);
                 }
-                
+
                 bool final = kvp.Value.IsFinalState;
 
                 Console.WriteLine($"{kvp.Key}\t{terminal0}\t\t{terminal1}\t\t{final}");

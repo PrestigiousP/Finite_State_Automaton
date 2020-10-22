@@ -4,15 +4,18 @@ using System.Text;
 
 namespace TP1_Math.main
 {
+    /// <summary>
+    /// This class is a model that will be use when reading and writing to a file
+    /// </summary>
     public class ManageFiles
     {
+        //Instance variables
         public string FilePath { get; set; }
 
-        public ManageFiles()
-        {
-            // Menu();
-        }
-
+        /// <summary>
+        /// This method allows to write a string to a file.
+        /// </summary>
+        /// <param name="grammaire">A string that correspond to the grammar.</param>
         public void Create_Rewrite_File(string grammaire)
         {
             try
@@ -31,9 +34,12 @@ namespace TP1_Math.main
             {
                 Console.WriteLine(e.Message);
             }
-
         }
 
+        /// <summary>
+        /// This method allows to read the data from a file.
+        /// </summary>
+        /// <returns>All the lines from the file.</returns>
         public string GetFileData()
         {
             StreamReader sr = new StreamReader(FilePath);
@@ -43,6 +49,7 @@ namespace TP1_Math.main
             {
                 sb.Append(line + "\n");
             }
+
             return sb.ToString();
         }
     }

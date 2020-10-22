@@ -8,15 +8,22 @@ namespace TP1_Math.main
 {
     public class Program
     {
-        //Instance des objets utile au programme dans son intégralité
+        //Instance variables
         private static readonly ManageFiles _manageFile = new ManageFiles();
-        private static Grammaire _grammaire = null;
+        private static Grammar _grammar;
+
+        /// <summary>
+        /// The main entry method
+        /// </summary>
+        /// <param name="args">An argument that can be use when starting the program.</param>
         static void Main(string[] args)
         {
-            //_manageFile.FilePath = "..\\..\\..\\test.txt"; Servait au test
             Menu();
         }
 
+        /// <summary>
+        /// this method is a menu displaying the main information.
+        /// </summary>
         private static void Menu()
         {
             while (true)
@@ -30,15 +37,16 @@ namespace TP1_Math.main
                 switch (choix)
                 {
                     case 1:
-                        GererGrammaire();
+                        ManageGrammar();
                         break;
                     case 2:
-                        if (_grammaire == null)
+                        if (_grammar == null)
                         {
                             Console.WriteLine("No grammar has been initialize.");
                             break;
                         }
-                        AutomateCreator automate = new AutomateCreator(_grammaire);
+
+                        AutomateCreator automate = new AutomateCreator(_grammar);
                         automate.Execute();
                         string expression = "";
                         while (expression != "q")
@@ -46,9 +54,11 @@ namespace TP1_Math.main
                             expression =
                                 ConsoleHelper.AskString(
                                     "Veuillez entrer une expression (Ex.: 10001110). Pour quitter, entrez \"q\": ");
-                            ExpressionReader expressionReader = new ExpressionReader(expression, automate.Automate, _grammaire.SDepart);
+                            ExpressionReader expressionReader =
+                                new ExpressionReader(expression, automate.Automate, _grammar.InitialState);
                             expressionReader.CheckExpression();
                         }
+
                         break;
                     case 3:
                         AutomaticInput();
@@ -58,10 +68,12 @@ namespace TP1_Math.main
                         break;
                 }
             }
-            
         }
 
-        private static void GererGrammaire()
+        /// <summary>
+        /// This method is a submenu that will allows to do operation on the grammar.
+        /// </summary>
+        private static void ManageGrammar()
         {
             Console.WriteLine("---------------------Menu Gérer une grammaire---------------------\n");
             Console.WriteLine("1- Créer ou réécrire une grammaire");
@@ -70,16 +82,18 @@ namespace TP1_Math.main
             int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 3);
             switch (choix)
             {
-                case 1: //Créer ou réécrire une grammaire et l'entreposer dans un fichier txt
-                    _grammaire = GrammarInitializer.Initialize();
-                    Console.WriteLine(_grammaire.ToString());
-                    _manageFile.Create_Rewrite_File(_grammaire.ToString());
+                case 1: //Create or rewrite a grammar and put it in a file text
+                    _grammar = GrammarInitializer.Initialize();
+                    Console.WriteLine(_grammar.ToString());
+                    _manageFile.Create_Rewrite_File(_grammar.ToString());
                     break;
-                case 2: //Charger une grammaire à partir d'un fichier txt
-                    _manageFile.FilePath = ConsoleHelper.AskString("Entrez le chemin d'accès sous la forme suivante (C:\\Utilisateurs:\\etc...) : \n");
+                case 2: //Load a grammar from a txt file.
+                    _manageFile.FilePath =
+                        ConsoleHelper.AskString(
+                            "Entrez le chemin d'accès sous la forme suivante (C:\\Utilisateurs:\\etc...) : \n");
                     string strGrammaire = _manageFile.GetFileData();
-                    _grammaire = GrammarInitializer.Initialize(strGrammaire);
-                    Console.WriteLine(_grammaire.ToString());
+                    _grammar = GrammarInitializer.Initialize(strGrammaire);
+                    Console.WriteLine(_grammar.ToString());
                     break;
                 case 3:
                     Environment.Exit(0);
@@ -90,46 +104,54 @@ namespace TP1_Math.main
             }
         }
 
+        /// <summary>
+        /// This method allows to simulate a program where the user has to input everything.
+        /// A predifined grammar has been added to allow everything to be execute automatically.
+        /// In brief, it plays everything without the user having to touch it.
+        /// </summary>
         private static void AutomaticInput()
         {
-            string s = "G = {V, T, S, R}\n" +
-                       "V = {0, 1, A, S, B, C, D, E}\n" +
-                       "T = {0, 1}\n" +
-                       "S = {S}\n" +
-                       "R = {S->e, S->0A, S->0, S->0D, A->1B, B->1C, C->0A, C->0, C->0D, D->0, D->0E, D->1, E->0, E->0E}";
+            const string predefinedGrammar = "G = {V, T, S, R}\n" +
+                                             "V = {0, 1, A, S, B, C, D, E}\n" +
+                                             "T = {0, 1}\n" +
+                                             "S = {S}\n" +
+                                             "R = {S->e, S->0A, S->0, S->0D, A->1B, B->1C, C->0A, C->0, C->0D, D->0, D->0E, D->1, E->0, E->0E}";
 
-            // ConsoleHelper.PrintString("Les informations sont en train d'être traité par le système...", 3000);
-            // string strGrammaire = _manageFile.
-            // ConsoleHelper.PrintString("Succès!", 500);
-            // ConsoleHelper.PrintString("Les données receuillis seront transferé dans un grammaire.", 1000);
-            _grammaire = GrammarInitializer.Initialize(s);
-            ConsoleHelper.PrintString("Les données ont bels et bien été transféré dans une grammaire. La voici:", 500);
-            ConsoleHelper.PrintString(_grammaire.ToString(), 5000);
+            _grammar = GrammarInitializer.Initialize(predefinedGrammar);
+            ConsoleHelper.PrintString("Voici la grammaire--v", 500);
+            ConsoleHelper.PrintString(_grammar.ToString(), 5000);
             ConsoleHelper.PrintString("L'automate va se créer...", 500);
-            AutomateCreator automate = new AutomateCreator(_grammaire);
+            AutomateCreator automate = new AutomateCreator(_grammar);
             automate.Execute();
             ConsoleHelper.PrintString("L'automate a été créé avec les éléments ci-dessus!", 5000);
-            ConsoleHelper.PrintString("5 input aléatoires seront effectués", 500);
-            for (int i = 0; i < 6; i++)
+            ConsoleHelper.PrintString("10 input aléatoires seront effectués", 500);
+            for (int i = 0; i < 11; i++)
             {
-                string expression = RandomInputGenerator();
+                string expression = RandomInputGenerator(11, 2);
                 ConsoleHelper.PrintString($"Input {i}: {expression}", 2000);
-                ExpressionReader expressionReader = new ExpressionReader(expression, automate.Automate, _grammaire.SDepart);
+                ExpressionReader expressionReader =
+                    new ExpressionReader(expression, automate.Automate, _grammar.InitialState);
                 expressionReader.CheckExpression();
                 ConsoleHelper.PrintString("------------------------------", 2000);
             }
+
             ConsoleHelper.PrintString("Fini!", 1000);
-            
         }
 
-        private static string RandomInputGenerator()
+        /// <summary>
+        /// This method allows to randomize an input.
+        /// </summary>
+        /// <param name="maxLenght">The max length that an input can have.</param>
+        /// <param name="limit">The limit of the input. (Can generate a number from 0 to the limit set).</param>
+        /// <returns>The string corresponding to the "fake" user input.</returns>
+        private static string RandomInputGenerator(int maxLenght, int limit)
         {
             Random random = new Random();
             StringBuilder sb = new StringBuilder();
-            int inputLength = random.Next(0, 11);
+            int inputLength = random.Next(0, maxLenght);
             for (int i = 0; i < inputLength; i++)
             {
-                int terminalInput = random.Next(0, 2);
+                int terminalInput = random.Next(0, limit);
                 sb.Append(terminalInput);
             }
 

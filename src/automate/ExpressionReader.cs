@@ -4,12 +4,22 @@ using TP1_Math.helpers;
 
 namespace TP1_Math.automate
 {
+    /// <summary>
+    /// Class <c>ExpressionReader</c> model for an expression and how it will interact with the user.
+    /// </summary>
     class ExpressionReader
     {
+        //Instance variable
         private readonly string _expression;
         private readonly string _initialState;
         private readonly Dictionary<string, StateTransition> _automate;
 
+        /// <summary>
+        /// This constructor initialize a new expression to read.
+        /// </summary>
+        /// <param name="expression">the expression to evaluate.</param>
+        /// <param name="automate">The automate that will be use to read the expression.</param>
+        /// <param name="initialState">Set the initial state of the grammar.</param>
         public ExpressionReader(string expression, Dictionary<string, StateTransition> automate, string initialState)
         {
             _expression = expression;
@@ -17,6 +27,10 @@ namespace TP1_Math.automate
             _initialState = initialState;
         }
 
+        /// <summary>
+        /// This method allow to check if the expression is valide or not.
+        /// </summary>
+        /// <returns>A boolean that will return true if the expression is valid and false if not.</returns>
         private bool Validate()
         {
             char[] expression = _expression.ToCharArray();
@@ -52,6 +66,9 @@ namespace TP1_Math.automate
             return false;
         }
 
+        /// <summary>
+        /// This method execute the validation and write to the console if the automate is valid or not.
+        /// </summary>
         public void CheckExpression()
         {
             try

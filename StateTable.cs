@@ -31,6 +31,7 @@ namespace TP1_Math
         //CELA VA PERMETTRE DE EVENTUELLEMENT TRANSFORMER UN AUTOMATE NON-DETERMINISTE A UN DETERMINISTE
         public void CreateNDFAStateTable()
         {
+
             List<string> ruleList = _grammaire.Regles;
             List<string> listeEtatsFusionnes = new List<string>();
             Regex rx = new Regex("^[0-1]{1}[A-Z]{1}$");
@@ -71,16 +72,17 @@ namespace TP1_Math
                 {
                     //Si le non-terminal existe déjà et que pour un même input il se rend vers un autre état différent,
                     //alors on le fait aller vers un état qui est la fusion des deux autres.
-                    if(_tableStructure[split[0]].NextState[Int32.Parse(nextState.Substring(0))] != null)
-                    {
-                        lastState = _tableStructure[split[0]].GetNextState(Int32.Parse(nextState.Substring(0)));
-                        StateTransition stateTransition = new StateTransition();
-                        stateTransition.SetNextState(getTerminal, nextState + lastState);
-                        _tableStructure[split[0]] = stateTransition;
-                        listeEtatsFusionnes.Add(nextState + lastState);
+                    //if(_tableStructure[split[0]].NextState[Int32.Parse(nextState.Substring(0))] != null)
+                    //{
+                    //    lastState = _tableStructure[split[0]].GetNextState(Int32.Parse(nextState.Substring(0)));
+                    //    StateTransition stateTransition = new StateTransition();
+                    //    stateTransition.SetNextState(getTerminal, nextState + lastState);
+                    //    _tableStructure[split[0]] = stateTransition;
+                    //    listeEtatsFusionnes.Add(nextState + lastState);
 
-                        //faire quelque chose
-                    }
+                    //    //faire quelque chose
+
+                    //}
 
                     if (nextState == "e") _tableStructure[split[0]].IsFinalState = true;
                     else _tableStructure[split[0]].SetNextState(getTerminal, nextState);
@@ -101,6 +103,12 @@ namespace TP1_Math
                 }
 
             }
+
+            if(listeEtatsFusionnes.Count > 0)
+            {
+                
+            }
+
             //Just for debugging
             printTable();
         }

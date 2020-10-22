@@ -10,8 +10,6 @@ namespace TP1_Math
         private static Grammaire _grammaire;
         static void Main(string[] args)
         {
-            //Maybe put it in a ressource...?
-            manageFile.FilePath = "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\test.txt";
             StateTable st = new StateTable();
             Menu(st);
 
@@ -24,18 +22,16 @@ namespace TP1_Math
             {
                 Console.WriteLine("---------------------Menu---------------------\n");
                 Console.WriteLine("1- Gérer la grammaire");
-                Console.WriteLine("2- ");
+                Console.WriteLine("2- Entrer une expression");
                 Console.WriteLine("3- Quitter");
                 int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 3);
                 switch (choix)
                 {
                     case 1:
                         GererGrammaire(st);
-                        //gérer grammaire
                         break;
                     case 2:
                         st.CreateNDFAStateTable();
-                        //st.CnvertToDFATable();
                         CheckExpression(st);
                         break;
                     default:
@@ -52,9 +48,6 @@ namespace TP1_Math
                 Console.WriteLine("Veuillez entrer une expression (Ex.: 10001110). Pour quitter, entrez \"q\": ");
                 try
                 {
-                    // StateTable st = new StateTable(_grammaire);
-                    //// st.CnvertToDFATable();
-                    // var dict = st.GetState();
                     string expression = Console.ReadLine();
                     if(expression != "q")
                     {
@@ -90,8 +83,8 @@ namespace TP1_Math
                     manageFile.Create_Rewrite_File(_grammaire.ToString());
                     break;
                 case 2: //Charger une grammaire
+                    manageFile.LoadPath();
                     string strGrammaire = manageFile.GetFileData();
-
                     GrammarInitializer preloadGrammar = new GrammarInitializer();
                     _grammaire = GrammarInitializer.Initialize(strGrammaire);
                     Console.WriteLine(_grammaire.ToString());

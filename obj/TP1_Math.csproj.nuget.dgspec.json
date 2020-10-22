@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj": {}
+    "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj": {
+    "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
+        "projectUniqueName": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math.csproj",
         "projectName": "TP1_Math",
-        "projectPath": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\TP1_Math.csproj",
+        "projectPath": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math.csproj",
         "packagesPath": "C:\\Users\\Phili\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\TP1_Math\\obj\\",
+        "outputPath": "C:\\Users\\Phili\\source\\repos\\math2\\TP1_Math\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

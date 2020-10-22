@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 
 
 namespace TP1_Math
@@ -16,11 +17,28 @@ namespace TP1_Math
             // Menu();
         }
 
+        public void LoadPath()
+        {
+            try
+            {
+                if(FilePath == null)
+                {
+                    Console.WriteLine("Entrez chemin d'accès vers le fichier (inclure également le nom du fichier et l'extension)");
+                    FilePath = Console.ReadLine();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
         public void Create_Rewrite_File(string grammaire)
         {
             try
             {
-                Console.WriteLine("Entrez le nom du fichier (sans le nom d'extension).");
+                Console.WriteLine("Entrez le nom du fichier (sans le nom d'extension du fichier).");
                 string fileName = Console.ReadLine();
                 Console.WriteLine("Entrez le nom du répertoire où vous voulez sauvegarder le fichier");
                 FilePath = Console.ReadLine();
@@ -37,7 +55,7 @@ namespace TP1_Math
 
         }
 
-        public string GetFileData()
+        public string GetFileData() 
         {
             StreamReader sr = new StreamReader(FilePath);
             StringBuilder sb = new StringBuilder();

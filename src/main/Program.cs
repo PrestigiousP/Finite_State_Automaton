@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TP1_Math.automate;
 using TP1_Math.helpers;
@@ -35,8 +36,9 @@ namespace TP1_Math.main
                 Console.WriteLine("1- Gérer la grammaire");
                 Console.WriteLine("2- Exécuter les règles et la grammaire");
                 Console.WriteLine("3- POUR CORRECTEUR: EXÉCUTER AUTOMATIQUEMENT UNE GRAMMAIRE ET UN AUTOMATE PRÉFAITE");
-                Console.WriteLine("4- Quitter");
-                int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 4);
+                Console.WriteLine("4- Lister la grammaire");
+                Console.WriteLine("5- Quitter");
+                int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 5);
                 switch (choix)
                 {
                     case 1:
@@ -67,6 +69,14 @@ namespace TP1_Math.main
                         AutomaticInput();
                         break;
                     case 4:
+                        if (_grammar == null)
+                        {
+                            Console.WriteLine("La grammaire n'existe pas.");
+                            break;
+                        }
+                        ConsoleHelper.PrintString(_grammar.ToString(), 10000);
+                        break;
+                    case 5:
                         Environment.Exit(0);
                         break;
                 }
@@ -81,8 +91,10 @@ namespace TP1_Math.main
             Console.WriteLine("---------------------Menu Gérer une grammaire---------------------\n");
             Console.WriteLine("1- Créer ou réécrire une grammaire");
             Console.WriteLine("2- Charger une grammaire");
-            Console.WriteLine("3- Retour au menu principal");
-            int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 3);
+            Console.WriteLine("3- Ajouter une règle à la grammaire");
+            Console.WriteLine("4- Retirer une règle de la grammaire");
+            Console.WriteLine("5- Retour au menu principal");
+            int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 5);
             switch (choix)
             {
                 case 1: //Create or rewrite a grammar and put it in a file text
@@ -99,7 +111,21 @@ namespace TP1_Math.main
                     Console.WriteLine(_grammar.ToString());
                     break;
                 case 3:
-                    Environment.Exit(0);
+                    if(_grammar == null) break;
+                    List<string> list = new List<string>();
+                    list.AddRange(_grammar.Rules);
+                    list.AddRange(GrammarInitializer.EnterRules(_grammar.Vocabulary, _grammar.InitialState[0]));
+                    _grammar.Rules = list;
+                    break;
+                case 4:
+                    string ruleToRmv = null;
+                    while (ruleToRmv != "")
+                    {
+                        ruleToRmv = ConsoleHelper.AskString("Please enter the rule to remove: ");
+                        _grammar.RemoveRules(ruleToRmv);
+                    }
+                    break;
+                case 5:
                     break;
                 default:
                     Console.WriteLine("Entrée non valide");

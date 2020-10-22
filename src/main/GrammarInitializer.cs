@@ -18,9 +18,9 @@ namespace TP1_Math.main
         public static Grammar Initialize()
         {
             string vocabulary = EnterVocabulary();
-            string startState = EnterInitialState(vocabulary);
-            List<string> rules = EnterRules(vocabulary, startState[0]);
-            var grammaire = new Grammar(vocabulary, startState, rules);
+            string initialState = EnterInitialState(vocabulary);
+            List<string> rules = EnterRules(vocabulary, initialState[0]);
+            var grammaire = new Grammar(vocabulary, initialState, rules);
             return grammaire;
         }
 
@@ -118,7 +118,7 @@ namespace TP1_Math.main
         /// <param name="vocabulary">A vocabulary that will be be use to check if the user input is correct.</param>
         /// <param name="initialState">The character corresponding to the initial state.</param>
         /// <returns>A list of rules that will be use by the grammar</returns>
-        private static List<string> EnterRules(string vocabulary, char initialState)
+        public static List<string> EnterRules(string vocabulary, char initialState)
         {
             string str = null;
             List<string> ruleList = new List<string>();

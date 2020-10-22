@@ -10,10 +10,10 @@ namespace TP1_Math.main
     public class Grammar
     {
         //Instance variables
-        private string Vocabulary { get; }
+        public string Vocabulary { get; }
         private int[] Terminals { get; } = {0, 1};
         public string InitialState { get; }
-        public List<string> Rules { get; }
+        public List<string> Rules { get; set; }
 
         /// <summary>
         /// This constructor initialize the attributes of the grammar.
@@ -26,15 +26,6 @@ namespace TP1_Math.main
             Vocabulary = vocabulary;
             InitialState = initialState;
             Rules = rules;
-        }
-
-        /// <summary>
-        /// Add a rule to the list of rules.
-        /// </summary>
-        /// <param name="rule">A new rule.</param>
-        public void AddRules(string newRule)
-        {
-            Rules.Add(newRule);
         }
 
         /// <summary>

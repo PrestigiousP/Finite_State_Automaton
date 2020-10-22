@@ -76,6 +76,7 @@ namespace TP1_Math.main
                     _manageFile.Create_Rewrite_File(_grammaire.ToString());
                     break;
                 case 2: //Charger une grammaire
+                    _manageFile.FilePath = ConsoleHelper.AskString("Entrez le chemin d'accès sous la forme suivante (C:\\Utilisateurs:\\etc...) : \n");
                     string strGrammaire = _manageFile.GetFileData();
                     _grammaire = GrammarInitializer.Initialize(strGrammaire);
                     Console.WriteLine(_grammaire.ToString());

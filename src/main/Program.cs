@@ -13,7 +13,7 @@ namespace TP1_Math.main
         private static Grammaire _grammaire = null;
         static void Main(string[] args)
         {
-            _manageFile.FilePath = "..\\..\\..\\test.txt";
+            //_manageFile.FilePath = "..\\..\\..\\test.txt"; Servait au test
             Menu();
         }
 
@@ -70,12 +70,12 @@ namespace TP1_Math.main
             int choix = ConsoleHelper.AskInteger("Entrez un nombre pour faire un choix: ", 1, 3);
             switch (choix)
             {
-                case 1: //Créer ou réécrire une grammaire
+                case 1: //Créer ou réécrire une grammaire et l'entreposer dans un fichier txt
                     _grammaire = GrammarInitializer.Initialize();
                     Console.WriteLine(_grammaire.ToString());
                     _manageFile.Create_Rewrite_File(_grammaire.ToString());
                     break;
-                case 2: //Charger une grammaire
+                case 2: //Charger une grammaire à partir d'un fichier txt
                     _manageFile.FilePath = ConsoleHelper.AskString("Entrez le chemin d'accès sous la forme suivante (C:\\Utilisateurs:\\etc...) : \n");
                     string strGrammaire = _manageFile.GetFileData();
                     _grammaire = GrammarInitializer.Initialize(strGrammaire);

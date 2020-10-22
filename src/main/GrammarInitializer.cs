@@ -43,6 +43,8 @@ namespace TP1_Math.main
             Grammaire grammaire = new Grammaire(voc, startState, ruleList);
             return grammaire;
         }
+
+        //Méthode s'assurant que l'input de l'utilisateur respecte le format
         private static string EnterVocabulary(string inputSymbol1, string inputSymbol2)
         {
             int valid = 0;
@@ -96,6 +98,7 @@ namespace TP1_Math.main
             return state;
         }
 
+        //Méthode s'assurant que l'input de l'utilisateur respecte le format
         private static List<string> EnterRules(string vocabulary, char startState)
         {
             string str = null;

@@ -13,7 +13,7 @@ namespace TP1_Math.main
         private static Grammaire _grammaire = null;
         static void Main(string[] args)
         {
-            _manageFile.FilePath = "C:\\dev\\TP1_Math\\test.txt";
+            _manageFile.FilePath = "..\\..\\..\\test.txt";
             Menu();
         }
 

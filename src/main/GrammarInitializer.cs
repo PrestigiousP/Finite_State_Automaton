@@ -69,7 +69,7 @@ namespace TP1_Math.main
                     Console.WriteLine("Veuillez entrer le format correctement");
                 }
             }
-            Console.WriteLine("Bonne entrer");
+            Console.WriteLine("Bonne entrée");
             return voc;
         }
 
@@ -92,7 +92,7 @@ namespace TP1_Math.main
                     Console.WriteLine("Mauvais format... Veuillez reesayer.");
                 }
             }
-            Console.WriteLine("Bonne entrer");
+            Console.WriteLine("Bonne entrée");
             return state;
         }
 

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace TP1_Math
+namespace TP1_Math.automate
 {
     class StateTransition
     {
@@ -11,9 +9,7 @@ namespace TP1_Math
 
         public StateTransition()
         {
-            NextState = new LinkedList<string>[2];
-            NextState[0] = new LinkedList<string>();
-            NextState[1] = new LinkedList<string>();
+            NextState = new[] {new LinkedList<string>(), new LinkedList<string>()};
             IsFinalState = false;
         }
 

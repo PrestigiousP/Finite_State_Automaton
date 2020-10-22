@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
-namespace TP1_Math
+namespace TP1_Math.main
 {
     public class Grammaire
     {
         private string Vocabulaire { get; }
         private int[] Terminaux { get; } = { 0, 1 };
         public string SDepart { get; }
-        public List<string> Regles { get; private set; }
+        public List<string> Regles { get; }
         //Constructeur
         public Grammaire(string vocabulaire, string sDepart, List<string> regles)
         {

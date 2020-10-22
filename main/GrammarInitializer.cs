@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
-namespace TP1_Math
+namespace TP1_Math.main
 {
     class GrammarInitializer
     {
 
-        public Grammaire Initialize()
+        public static Grammaire Initialize()
         {
             string vocabulary = EnterVocabulary("0", "1");
             string startState = EnterDepartState(vocabulary);
@@ -44,7 +43,7 @@ namespace TP1_Math
             Grammaire grammaire = new Grammaire(voc, startState, ruleList);
             return grammaire;
         }
-        private string EnterVocabulary(string inputSymbol1, string inputSymbol2)
+        private static string EnterVocabulary(string inputSymbol1, string inputSymbol2)
         {
             int valid = 0;
             string voc = "";
@@ -74,7 +73,7 @@ namespace TP1_Math
             return voc;
         }
 
-        private string EnterDepartState(string vocabulary)
+        private static string EnterDepartState(string vocabulary)
         {
             int valid = 0;
             string state = "";
@@ -97,7 +96,7 @@ namespace TP1_Math
             return state;
         }
 
-        private List<string> EnterRules(string vocabulary, char startState)
+        private static List<string> EnterRules(string vocabulary, char startState)
         {
             string str = null;
             List<string> ruleList = new List<string>();

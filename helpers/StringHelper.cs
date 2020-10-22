@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
-namespace TP1_Math
+namespace TP1_Math.helpers
 {
-    public class Helper
+    public class StringHelper
     {
         public static IEnumerable ConvertStringToList <T>(IEnumerable<T> list)
         {
-            string str = "";
-            List<T> l = new List<T>();
-            foreach (var e in list)
-            {
-                l.Add(e);
-            }
-            return l;
+            return list.ToList();
         }
         
         public static void ChekDuplicates<T>(List<T> list)
@@ -39,14 +31,10 @@ namespace TP1_Math
         
         public static string ConvertListToString<T>(IEnumerable<T> list)
         {
-            string str = "";
             List<T> l = list.ToList();
             l.Sort();
-            foreach (var e in l)
-            {
-                str += e + ",";
-            }
-            if (str != null && str.Length > 0)
+            string str = l.Aggregate("", (current, e) => current + (e + ","));
+            if (!string.IsNullOrEmpty(str))
                 str = str.Substring(0, str.Length - 1);
             return str;
         }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TP1_Math
+namespace TP1_Math.helpers
 {
     static class ConsoleHelper
     {
